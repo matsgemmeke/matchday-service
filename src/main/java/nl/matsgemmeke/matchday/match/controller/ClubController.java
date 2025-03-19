@@ -17,13 +17,13 @@ public class ClubController {
 
     private final ClubService clubService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ClubDTO>> getAllClubs() {
         log.info("Handling GET request: getAllClubs");
         return ResponseEntity.ok(clubService.getAllClubs());
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Void> postClub(@RequestBody ClubDTO clubDTO) {
         log.info("Handling POST request: postClub with body " + clubDTO);
         clubService.createClub(clubDTO);
