@@ -1,6 +1,13 @@
+name: review
+
 on:
   pull_request:
     types: [opened, synchronize]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
 
 jobs:
   code_review_job:
@@ -8,7 +15,7 @@ jobs:
     name: ChatGPT Code Review
     steps:
       - name: generate code review
-        uses: cirolini/genai-code-review@v2
+        uses: dlidstrom/genai-code-review@v3
         with:
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
