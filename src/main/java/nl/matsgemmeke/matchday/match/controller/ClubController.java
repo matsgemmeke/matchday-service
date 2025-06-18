@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/club")
@@ -23,9 +24,15 @@ public class ClubController {
         return ResponseEntity.ok(clubService.getAllClubs());
     }
 
+    @GetMapping("/{clubId}")
+    public ResponseEntity<ClubDTO> getClub(@RequestParam UUID clubId) {
+        log.info("Handling GET request: getClubs with club id %s".formatted(clubId));
+        return ResponseEntity.ok(clubService.getClub(clubId));
+    }
+
     @PostMapping
     public ResponseEntity<Void> postClub(@RequestBody ClubDTO clubDTO) {
-        log.info("Handling POST request: postClub with body " + clubDTO);
+        log.info("Handling POST request: postClub with body %s".formatted(clubDTO));
         clubService.createClub(clubDTO);
         return ResponseEntity.accepted().build();
     }

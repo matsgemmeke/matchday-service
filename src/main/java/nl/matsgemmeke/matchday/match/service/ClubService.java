@@ -8,6 +8,7 @@ import nl.matsgemmeke.matchday.match.repository.entity.ClubEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -29,5 +30,12 @@ public class ClubService {
         return StreamSupport.stream(clubEntities.spliterator(), false)
                 .map(clubMapper::toClubDTO)
                 .toList();
+    }
+
+    public ClubDTO getClub(UUID clubId) {
+        ClubEntity clubEntity = clubRepository.findById(clubId)
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find club by id %s".formatted(clubId)));
+
+        return clubMapper.toClubDTO(clubEntity);
     }
 }
